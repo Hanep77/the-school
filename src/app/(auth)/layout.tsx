@@ -1,6 +1,6 @@
 export default function Layout({ children, }: { children: React.ReactNode }) {
   return (
-    <div className="bg-zinc-200">
+    <div>
       {children}
     </div>
   )

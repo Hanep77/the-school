@@ -18,7 +18,18 @@ export const authOptions: AuthOptions = {
           const user = {
             id: "123",
             name: "admin",
-            email: "admin"
+            email: "admin@gmail.com",
+            role: "admin"
+          };
+          return user;
+        }
+
+        if (credentials.email == "guru@gmail.com" && credentials.password == "rahasia") {
+          const user = {
+            id: "123",
+            name: "guru",
+            email: "guru@gmail.com",
+            role: "guru"
           };
           return user;
         }

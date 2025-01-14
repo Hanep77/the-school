@@ -13,9 +13,8 @@ export default function Sidebar() {
   const dashboardMenu = session.data?.user?.name === "admin" ? adminMenu : guruMenu;
 
   return (
-    <aside className="w-80 py-2 px-4 min-h-screen bg-cyan-900 text-white">
-      <h2 className="text-2xl mb-2 font-bold">Dashboard</h2>
-      <ul className="">
+    <aside className="w-80 pt-20 pb-2 px-4 min-h-screen bg-cyan-900 text-white">
+      <ul>
         {dashboardMenu?.map((menu: dashboardMenuType, index: number) => {
           return (
             <li key={index}>

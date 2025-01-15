@@ -10,8 +10,8 @@ export default function Navbar() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = ({ target }: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(target as Node)) {
         setIsOpen(false);
       }
     };

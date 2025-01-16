@@ -54,33 +54,33 @@ export default function Guru() {
       {/* end page header */}
 
       {/* content */}
-      <div className="bg-zinc-100 border border-zinc-300 p-4 rounded">
+      <div className="bg-zinc-100 border border-zinc-300 rounded overflow-x-auto">
         <table className="table w-full text-sm text-left rtl:text-right">
           <thead className="">
             <tr>
-              <th>Nama</th>
-              <th>Gender</th>
-              <th>NIK</th>
-              <th>No. Telp</th>
-              <th>Email</th>
-              <th>Alamat</th>
-              <th>Aktif</th>
-              <th>Penugasan</th>
-              <th>Actions</th>
+              <th className="py-3 px-6">Nama</th>
+              <th className="py-3 px-6">Gender</th>
+              <th className="py-3 px-6">NIK</th>
+              <th className="py-3 px-6">No. Telp</th>
+              <th className="py-3 px-6">Email</th>
+              <th className="py-3 px-6">Alamat</th>
+              <th className="py-3 px-6">Aktif</th>
+              <th className="py-3 px-6">Penugasan</th>
+              <th className="py-3 px-6">Actions</th>
             </tr>
           </thead>
           <tbody className="text-zinc-600">
             {data.map(item => (
               <tr className="border-b">
-                <td className="py-1">{item.nama}</td>
-                <td>{item.gender}</td>
-                <td>{item.nik}</td>
-                <td>{item.no_telepon}</td>
-                <td>{item.email}</td>
-                <td>{item.alamat}</td>
-                <td><div className={`w-4 h-4 ${item.is_active ? "bg-green-500" : "bg-red-500"} rounded-full`}></div></td>
-                <td><Link href={"/dashboard/guru/penugasan/" + item.id} className="text-blue-500 underline italic">lihat selengkapnya</Link></td>
-                <td className="flex gap-2 text-xl py-1">
+                <td className="py-3 px-6 whitespace-nowrap">{item.nama}</td>
+                <td className="py-3 px-6 whitespace-nowrap">{item.gender}</td>
+                <td className="py-3 px-6 whitespace-nowrap">{item.nik}</td>
+                <td className="py-3 px-6 whitespace-nowrap">{item.no_telepon}</td>
+                <td className="py-3 px-6 whitespace-nowrap">{item.email}</td>
+                <td className="py-3 px-6 whitespace-nowrap">{item.alamat}</td>
+                <td className="py-3 px-6 whitespace-nowrap"><div className={`w-4 h-4 ${item.is_active ? "bg-green-500" : "bg-red-500"} rounded-full`}></div></td>
+                <td className="py-3 px-6 whitespace-nowrap"><Link href={"/dashboard/guru/penugasan/" + item.id} className="text-blue-500 underline italic">lihat selengkapnya</Link></td>
+                <td className="flex gap-2 text-xl py-3 px-6">
                   <button type="button" className="text-yellow-500"><BiEdit /></button>
                   <button type="button" className="text-red-500"><BiTrash /></button>
                 </td>
@@ -88,8 +88,8 @@ export default function Guru() {
             ))}
           </tbody>
         </table>
-      </div>
+      </div >
       {/* end content */}
-    </div>
+    </div >
   )
 }

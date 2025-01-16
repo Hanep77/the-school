@@ -39,23 +39,23 @@ export default function Kelas() {
       {/* end page header */}
 
       {/* content */}
-      <div className="bg-zinc-100 border border-zinc-300 p-4 rounded">
+      <div className="bg-zinc-100 border border-zinc-300 p-4 rounded overflow-x-auto">
         <table className="table w-full text-sm text-left rtl:text-right">
           <thead className="">
             <tr>
-              <th>Kelas</th>
-              <th>Tingkat</th>
-              <th>Jumlah Siswa</th>
-              <th>Actions</th>
+              <th className="py-3 px-6">Kelas</th>
+              <th className="py-3 px-6">Tingkat</th>
+              <th className="py-3 px-6">Jumlah Siswa</th>
+              <th className="py-3 px-6">Actions</th>
             </tr>
           </thead>
           <tbody className="text-zinc-600">
             {data.map(item => (
               <tr className="border-b">
-                <td className="py-1">{item.kelas}</td>
-                <td>{item.tingkat}</td>
-                <td>{item.jumlah_siswa}</td>
-                <td className="flex gap-2 text-xl py-1">
+                <td className="py-3 px-6 whitespace-nowrap">{item.kelas}</td>
+                <td className="py-3 px-6 whitespace-nowrap">{item.tingkat}</td>
+                <td className="py-3 px-6 whitespace-nowrap">{item.jumlah_siswa}</td>
+                <td className="py-3 px-6 whitespace-nowrap flex gap-2 text-xl py-1">
                   <button type="button" className="text-yellow-500"><BiEdit /></button>
                   <button type="button" className="text-red-500"><BiTrash /></button>
                 </td>

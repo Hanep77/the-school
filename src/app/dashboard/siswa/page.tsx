@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { BiEdit, BiTrash } from "react-icons/bi"
-import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md"
+import { MdKeyboardArrowRight } from "react-icons/md"
+import FilterDropdown from "../components/filterdropdown"
 
 const data = [
   {
@@ -118,26 +119,8 @@ export default function Siswa() {
         <form>
           <input type="text" name="search" placeholder="search..." className="h-8 px-2 rounded outline-none border border-zinc-300" />
         </form>
-
-        <div>
-          <button
-            type="button"
-            id="dropdownDefaultButton"
-            className="text-white bg-cyan-800 font-medium rounded text-sm h-8 px-4 text-center inline-flex items-center mb-2">
-            Kelas<MdKeyboardArrowDown className="text-xl" />
-          </button>
-
-          <div id="dropdown" className="absolute z-10 bg-white rounded w-44 border border-zinc-300">
-            <ul className="p-2 text-sm" aria-labelledby="dropdownDefaultButton">
-              <li>
-                <a href="#" className="border-s-2 hover:border-cyan-800 block px-4 py-2 mb-1">RPL A</a>
-              </li>
-              <li>
-                <a href="#" className="border-s-2 hover:border-cyan-800 block px-4 py-2 mb-1">RPL B</a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <FilterDropdown label="Kelas" values={["RPL A", "RPL B"]} />
+        <FilterDropdown label="Tingkat" values={["X", "XI", "XII"]} />
       </div>
       {/* end filter */}
 
@@ -176,6 +159,22 @@ export default function Siswa() {
         </table>
       </div>
       {/* end content */}
+
+      {/* pagination */}
+      <div className="flex flex-col items-center my-2">
+        <span className="text-sm text-cyan-800">
+          Showing <span className="font-semibold">1</span> to <span className="font-semibold">10</span> of <span className="font-semibold">100</span> Entries
+        </span>
+        <div className="inline-flex mt-2 xs:mt-0">
+          <button className="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-cyan-800 rounded-s hover:bg-cyan-900">
+            Prev
+          </button>
+          <button className="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-cyan-800 rounded-e hover:bg-cyan-900">
+            Next
+          </button>
+        </div>
+      </div>
+      {/* end pagination */}
     </div>
   )
 }

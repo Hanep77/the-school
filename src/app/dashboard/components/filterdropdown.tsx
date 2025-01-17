@@ -38,8 +38,8 @@ export default function FilterDropdown({ label, values }: FilterDropdownProps) {
       {isOpen && (
         <div id="dropdown" className={`absolute z-10 bg-white rounded min-w-32 border border-zinc-300`}>
           <ul className="p-2 text-sm" aria-labelledby="dropdownDefaultButton">
-            {values.map(value => (
-              <li>
+            {values.map((value, index) => (
+              <li key={index}>
                 <button type="button" className="w-full text-start border-s-2 hover:border-cyan-800 px-4 py-2 mb-1">{value}</button>
               </li>
             ))}

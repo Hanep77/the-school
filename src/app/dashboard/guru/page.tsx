@@ -70,8 +70,8 @@ export default function Guru() {
             </tr>
           </thead>
           <tbody className="text-zinc-600">
-            {data.map(item => (
-              <tr className="border-b">
+            {data.map((item, index) => (
+              <tr key={index} className="border-b">
                 <td className="py-3 px-6 whitespace-nowrap">{item.nama}</td>
                 <td className="py-3 px-6 whitespace-nowrap">{item.gender}</td>
                 <td className="py-3 px-6 whitespace-nowrap">{item.nik}</td>

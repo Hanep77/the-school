@@ -1,6 +1,7 @@
 import { usePathname } from "next/navigation"
 import { useMemo } from "react";
 import { IconType } from "react-icons";
+import { BiCalendar } from "react-icons/bi";
 import { GiTeacher } from "react-icons/gi";
 import { MdBook, MdDashboard } from "react-icons/md";
 import { PiStudent } from "react-icons/pi";
@@ -46,6 +47,12 @@ const useDashboardMenu = () => {
       href: "/dashboard/pelajaran",
       active: pathname === '/dashboard/pelajaran',
       icon: MdBook
+    },
+    {
+      label: "Tahun Ajaran",
+      href: "/dashboard/tahun-ajaran",
+      active: pathname === '/dashboard/tahun-ajaran',
+      icon: BiCalendar
     },
   ], [pathname]);
 

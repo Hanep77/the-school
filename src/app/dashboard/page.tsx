@@ -4,7 +4,7 @@ import { PiNotificationFill, PiStudent } from "react-icons/pi";
 
 export default function Dashboard() {
   return (
-    <div className="p-4 max-w-screen-2xl">
+    <div className="p-4">
       {/* breadcrumbs */}
       <div className="flex items-center">
         <Link href={"/dashboard"}>Dashboard</Link>

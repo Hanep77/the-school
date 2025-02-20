@@ -18,7 +18,7 @@ export default function Login() {
   const authRequest = (event: FormEvent) => {
     event.preventDefault();
     const user = {
-      email: (event.target as HTMLFormElement).email.value,
+      username: (event.target as HTMLFormElement).username.value,
       password: (event.target as HTMLFormElement).password.value,
     };
 
@@ -27,6 +27,7 @@ export default function Login() {
       redirect: false
     })
       .then((callback) => {
+        console.log(callback);
         if (callback?.error) {
           alert('Invalid Credentials');
         }
@@ -42,13 +43,13 @@ export default function Login() {
       <div className="p-5 shadow bg-white rounded w-80">
         <h4 className="text-2xl text-center font-semibold mb-5">Sign in</h4>
         <form onSubmit={authRequest} className="flex flex-col gap-3">
-          <Input type="email" name="email" label="Email" required={true} />
+          <Input type="text" name="username" label="Username" required={true} />
           <Input type="password" name="password" label="Password" required={true} />
           <select name="cars" id="cars" className="h-8 border border-zinc-400 rounded px-2">
             <option value="admin">Admin</option>
             <option value="guru">Guru</option>
           </select>
-          <button type="submit" className="h-10 bg-cyan-700 hover:bg-cyan-600 active:bg-cyan-500 text-white rounded">
+          <button type="submit" className="h-10 bg-cyan-800 hover:bg-cyan-700 active:bg-cyan-600 text-white rounded">
             Sign in
           </button>
         </form>

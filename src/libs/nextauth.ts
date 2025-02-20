@@ -1,46 +1,50 @@
 import Credentials from "next-auth/providers/credentials";
 import { AuthOptions } from "next-auth";
+import axios from "axios";
+
+interface User {
+  id: number;
+  nama: string;
+  email: string;
+  no_telepon: string;
+  sekolah_id: string;
+  is_active: boolean;
+  created_at: string;
+  udpated_at: string;
+  role: { id: string, nama: string }[];
+  token: string;
+}
 
 export const authOptions: AuthOptions = {
   providers: [
     Credentials({
       name: "credentials",
       credentials: {
-        email: { label: 'email', type: 'text' },
+        username: { label: 'username', type: 'text' },
         password: { label: 'password', type: 'password' }
       },
-      authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error('Invalid Credentials');
-        }
-
-        if (credentials.email == "admin@gmail.com" && credentials.password == "rahasia") {
-          const user = {
-            id: "123",
-            name: "admin",
-            email: "admin@gmail.com",
-            role: "admin"
-          };
-          return user;
-        }
-
-        if (credentials.email == "guru@gmail.com" && credentials.password == "rahasia") {
-          const user = {
-            id: "123",
-            name: "guru",
-            email: "guru@gmail.com",
-            role: "guru"
-          };
-          return user;
-        }
-
-        throw new Error('Invalid Credentials');
+      async authorize(credentials) {
+        const user = await axios.post(process.env.NEXT_PUBLIC_API_URL + "/login", credentials);
+        return { ...user.data.data, token: user.data.credentials };
       }
     })
   ],
   debug: process.env.NODE_ENV === 'development',
   session: {
     strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      session.user = token.user as User;
+      return session;
+    },
   },
   secret: process.env.NEXTAUTH_SECRET,
 }

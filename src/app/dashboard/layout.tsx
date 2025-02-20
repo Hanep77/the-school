@@ -1,4 +1,3 @@
-import { getServerSession } from "next-auth";
 import Navbar from "./components/navbar";
 import Sidebar from "./components/sidebar";
 

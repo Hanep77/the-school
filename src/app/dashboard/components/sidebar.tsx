@@ -1,13 +1,9 @@
 "use client"
 
 import useDashboardMenu, { dashboardMenuType } from "@/hooks/useDashboardMenu";
-import useDashboardMenuGuru from "@/hooks/useDashboardMenuGuru";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 export default function Sidebar() {
-  const session = useSession();
-  console.log(session);
   const adminMenu = useDashboardMenu();
 
   return (

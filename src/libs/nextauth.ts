@@ -2,7 +2,7 @@ import Credentials from "next-auth/providers/credentials";
 import { AuthOptions } from "next-auth";
 import axios from "axios";
 
-interface User {
+export interface UserType {
   id: number;
   nama: string;
   email: string;
@@ -42,7 +42,7 @@ export const authOptions: AuthOptions = {
     },
 
     async session({ session, token }) {
-      session.user = token.user as User;
+      session.user = token.user as UserType;
       return session;
     },
   },

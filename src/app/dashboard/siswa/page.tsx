@@ -1,102 +1,67 @@
+"use client"
+
 import Link from "next/link"
 import { BiEdit, BiTrash } from "react-icons/bi"
 import { MdKeyboardArrowRight } from "react-icons/md"
 import FilterDropdown from "../components/filterdropdown"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { useSession } from "next-auth/react"
+import { UserType } from "@/libs/nextauth"
 
-const data = [
-  {
-    id: "012",
-    nama: "siswa 1",
-    tingkat: "X",
-    kelas: "RPL A",
-    nis: "123456789",
-    nisn: "123456789",
-    gender: "Laki-laki"
-  },
-  {
-    id: "012",
-    nama: "siswa 1",
-    tingkat: "X",
-    kelas: "RPL A",
-    nis: "123456789",
-    nisn: "123456789",
-    gender: "Laki-laki"
-  },
-  {
-    id: "012",
-    nama: "siswa 1",
-    tingkat: "X",
-    kelas: "RPL A",
-    nis: "123456789",
-    nisn: "123456789",
-    gender: "Laki-laki"
-  },
-  {
-    id: "012",
-    nama: "siswa 1",
-    tingkat: "X",
-    kelas: "RPL A",
-    nis: "123456789",
-    nisn: "123456789",
-    gender: "Laki-laki"
-  },
-  {
-    id: "012",
-    nama: "siswa 1",
-    tingkat: "X",
-    kelas: "RPL A",
-    nis: "123456789",
-    nisn: "123456789",
-    gender: "Laki-laki"
-  },
-  {
-    id: "012",
-    nama: "siswa 1",
-    tingkat: "X",
-    kelas: "RPL A",
-    nis: "123456789",
-    nisn: "123456789",
-    gender: "Laki-laki"
-  },
-  {
-    id: "012",
-    nama: "siswa 1",
-    tingkat: "X",
-    kelas: "RPL A",
-    nis: "123456789",
-    nisn: "123456789",
-    gender: "Laki-laki"
-  },
-  {
-    id: "012",
-    nama: "siswa 1",
-    tingkat: "X",
-    kelas: "RPL A",
-    nis: "123456789",
-    nisn: "123456789",
-    gender: "Laki-laki"
-  },
-  {
-    id: "012",
-    nama: "siswa 1",
-    tingkat: "X",
-    kelas: "RPL A",
-    nis: "123456789",
-    nisn: "123456789",
-    gender: "Laki-laki"
-  },
-  {
-    id: "012",
-    nama: "siswa 1",
-    tingkat: "X",
-    kelas: "RPL A",
-    nis: "123456789",
-    nisn: "123456789",
-    gender: "Laki-laki"
-  },
-]
+
+type SiswaType = {
+  id: string;
+  sekolah_id: string;
+  nik: string;
+  nisn: string;
+  nis: string;
+  email: string;
+  nama_lengkap: string;
+  nama_panggilan: string;
+  gender: "L" | "P";
+  tempat_lahir: string;
+  tanggal_lahir: string;
+  agama: string;
+  kewarga_negaraan: string;
+  bahasa: string;
+  berat_badan: number;
+  tinggi_badan: number;
+  golongan_darah: "A" | "B" | "AB" | "O" | null;
+  penyakit_berat: boolean;
+  keterangan_penyakit: string | null;
+  foto: string;
+  anak_ke: number;
+  jumlah_saudara_kandung: number;
+  jumlah_saudara_tiri: number;
+  jumlah_saudara_angkat: number;
+  alamat_tinggal: string;
+  no_telepon: string;
+  types: string;
+  pindahan: boolean;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 
 export default function Siswa() {
+  const [data, setData] = useState<SiswaType[]>([]);
+  const session = useSession();
+
+  useEffect(() => {
+    const token = (session?.data?.user as UserType).token;
+    console.log(token);
+    axios.get(process.env.NEXT_PUBLIC_API_URL + "/siswa?page=1&length=10", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((data) => {
+        setData(data.data.data);
+      })
+  }, []);
+
   return (
     <div className="px-4">
       {/* breadcrumbs */}
@@ -110,7 +75,7 @@ export default function Siswa() {
       {/* page header */}
       <div className="flex items-center justify-between mb-2">
         <h2 className="text-2xl font-semibold text-cyan-800">Siswa</h2>
-        <button type="button" className="py-1 px-2 bg-green-500 text-white rounded hover:bg-green-600">+ Add</button>
+        <Link href="/dashboard/siswa/create" className="py-1 px-2 bg-green-500 text-white rounded hover:bg-green-600">+ Add</Link>
       </div>
       {/* end page header */}
 
@@ -130,11 +95,12 @@ export default function Siswa() {
           <thead className="">
             <tr>
               <th className="py-3 px-6">Nama</th>
-              <th className="py-3 px-6">Tingkat</th>
-              <th className="py-3 px-6">Kelas</th>
-              <th className="py-3 px-6">Gender</th>
-              <th className="py-3 px-6">NISN</th>
               <th className="py-3 px-6">NIS</th>
+              <th className="py-3 px-6">NISN</th>
+              <th className="py-3 px-6">Gender</th>
+              <th className="py-3 px-6">Agama</th>
+              <th className="py-3 px-6">Tanggal Lahir</th>
+              <th className="py-3 px-6">Alamat</th>
               <th className="py-3 px-6">Detail</th>
               <th className="py-3 px-6">Actions</th>
             </tr>
@@ -142,12 +108,13 @@ export default function Siswa() {
           <tbody className="text-zinc-600">
             {data.map((item, index) => (
               <tr key={index} className="border-b">
-                <td className="py-3 px-6 whitespace-nowrap">{item.nama}</td>
-                <td className="py-3 px-6 whitespace-nowrap">{item.tingkat}</td>
-                <td className="py-3 px-6 whitespace-nowrap">{item.kelas}</td>
-                <td className="py-3 px-6 whitespace-nowrap">{item.gender}</td>
-                <td className="py-3 px-6 whitespace-nowrap">{item.nisn}</td>
+                <td className="py-3 px-6 whitespace-nowrap">{item.nama_lengkap}</td>
                 <td className="py-3 px-6 whitespace-nowrap">{item.nis}</td>
+                <td className="py-3 px-6 whitespace-nowrap">{item.nisn}</td>
+                <td className="py-3 px-6 whitespace-nowrap">{item.gender == "L" ? "Laki-laki" : "Perempuan"}</td>
+                <td className="py-3 px-6 whitespace-nowrap">{item.agama}</td>
+                <td className="py-3 px-6 whitespace-nowrap">{item.tanggal_lahir}</td>
+                <td className="py-3 px-6 whitespace-nowrap">{item.alamat_tinggal}</td>
                 <td className="py-3 px-6 whitespace-nowrap"><Link href={"/dashboard/siswa/" + item.id} className="text-blue-500 underline italic">lihat selengkapnya</Link></td>
                 <td className="flex gap-2 text-xl py-3 px-6">
                   <button type="button" className="text-yellow-500"><BiEdit /></button>

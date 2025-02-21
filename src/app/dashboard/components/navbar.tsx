@@ -22,7 +22,7 @@ export default function Navbar() {
     };
   }, []);
   return (
-    <nav className="w-full fixed text-cyan-800 border border-zinc-300 bg-zinc-100">
+    <nav className="z-30 w-full fixed text-cyan-800 border border-zinc-300 bg-zinc-100">
       <div className="flex items-center justify-between h-16 px-4 max-w-screen-2xl">
         <h2 className="text-2xl mb-2 font-bold italic underline">The School</h2>
         <div>

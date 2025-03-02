@@ -9,10 +9,9 @@ import axios from "axios"
 import { useSession } from "next-auth/react"
 import { UserType } from "@/libs/nextauth"
 
-
-type SiswaType = {
-  id: string;
-  sekolah_id: string;
+export type SiswaType = {
+  id?: string;
+  sekolah_id?: string;
   nik: string;
   nisn: string;
   nis: string;
@@ -40,10 +39,9 @@ type SiswaType = {
   types: string;
   pindahan: boolean;
   is_active: boolean;
-  created_at: string;
-  updated_at: string;
+  created_at?: string;
+  updated_at?: string;
 };
-
 
 export default function Siswa() {
   const [data, setData] = useState<SiswaType[]>([]);

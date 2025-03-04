@@ -49,7 +49,6 @@ export default function Siswa() {
 
   useEffect(() => {
     const token = (session?.data?.user as UserType).token;
-    console.log(token);
     axios.get(process.env.NEXT_PUBLIC_API_URL + "/siswa?page=1&length=10", {
       headers: {
         Authorization: `Bearer ${token}`

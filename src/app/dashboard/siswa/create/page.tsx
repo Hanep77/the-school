@@ -2,7 +2,7 @@
 
 import Input from "@/app/components/input";
 import Link from "next/link";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { SiswaType } from "../page";
 import axios from "axios";
@@ -11,8 +11,9 @@ import { UserType } from "@/libs/nextauth";
 
 export default function Create() {
   const session = useSession();
+  const [errors, setErrors] = useState<{ [key: string]: string }>();
 
-  const addSiswa = (event: FormEvent) => {
+  const addSiswa = async (event: FormEvent) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
 
@@ -47,7 +48,14 @@ export default function Create() {
     };
 
     const token = (session?.data?.user as UserType).token;
-    axios.post("https://the-school-beta.vercel.app/api/v1/siswa", siswa, { headers: { Authorization: `Bearer ${token}` } });
+    try {
+      const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + "/siswa", siswa, { headers: { Authorization: `Bearer ${token}` } });
+      console.log(response);
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setErrors(err.response?.data.errors);
+      }
+    }
   }
 
   return <div className="px-4 pb-4">
@@ -74,6 +82,7 @@ export default function Create() {
           type="text"
           name="nama_lengkap"
           label="Nama Lengkap"
+          error={errors?.name}
           required
         />
         <Input
@@ -91,23 +100,27 @@ export default function Create() {
           type="number"
           name="no_telepon"
           label="Nomor Telepon"
+          error={errors?.no_telepon}
         />
         <Input
           type="text"
           name="nis"
           label="NIS"
+          error={errors?.nis}
           required
         />
         <Input
           type="text"
           name="nisn"
           label="NISN"
+          error={errors?.nisn}
           required
         />
         <Input
           type="number"
           name="nik"
           label="NIK"
+          error={errors?.nik}
           required
         />
         <Input

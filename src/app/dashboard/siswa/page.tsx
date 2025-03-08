@@ -1,13 +1,8 @@
-"use client"
-
 import Link from "next/link"
 import { BiEdit, BiTrash } from "react-icons/bi"
 import { MdKeyboardArrowRight } from "react-icons/md"
 import FilterDropdown from "../components/filterdropdown"
-import { useEffect, useState } from "react"
-import axios from "axios"
-import { useSession } from "next-auth/react"
-import { UserType } from "@/libs/nextauth"
+import getAllSiswa from "@/actions/getAllSiswa"
 
 export type SiswaType = {
   id?: string;
@@ -43,21 +38,10 @@ export type SiswaType = {
   updated_at?: string;
 };
 
-export default function Siswa() {
-  const [data, setData] = useState<SiswaType[]>([]);
-  const session = useSession();
+export const dynamic = "force-dynamic";
 
-  useEffect(() => {
-    const token = (session?.data?.user as UserType).token;
-    axios.get(process.env.NEXT_PUBLIC_API_URL + "/siswa?page=1&length=10", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then((data) => {
-        setData(data.data.data);
-      })
-  }, []);
+export default async function Siswa() {
+  const data = await getAllSiswa();
 
   return (
     <div className="px-4">
@@ -103,7 +87,7 @@ export default function Siswa() {
             </tr>
           </thead>
           <tbody className="text-zinc-600">
-            {data.map((item, index) => (
+            {data.data?.map((item: SiswaType, index: number) => (
               <tr key={index} className="border-b">
                 <td className="py-3 px-6 whitespace-nowrap">{item.nama_lengkap}</td>
                 <td className="py-3 px-6 whitespace-nowrap">{item.nis}</td>

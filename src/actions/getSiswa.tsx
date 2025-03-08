@@ -1,4 +1,3 @@
-import { SiswaType } from "@/app/dashboard/siswa/page";
 import { authOptions } from "@/libs/nextauth";
 import axios from "axios";
 import { getServerSession } from "next-auth";

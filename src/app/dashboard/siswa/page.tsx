@@ -112,7 +112,7 @@ export default function Siswa() {
                 <td className="py-3 px-6 whitespace-nowrap">{item.agama}</td>
                 <td className="py-3 px-6 whitespace-nowrap">{item.tanggal_lahir}</td>
                 <td className="py-3 px-6 whitespace-nowrap">{item.alamat_tinggal}</td>
-                <td className="py-3 px-6 whitespace-nowrap"><Link href={"/dashboard/siswa/" + item.id} className="text-blue-500 underline italic">lihat selengkapnya</Link></td>
+                <td className="py-3 px-6 whitespace-nowrap"><Link href={"/dashboard/siswa/details/" + item.id} className="text-blue-500 underline italic">lihat selengkapnya</Link></td>
                 <td className="flex gap-2 text-xl py-3 px-6">
                   <button type="button" className="text-yellow-500"><BiEdit /></button>
                   <button type="button" className="text-red-500"><BiTrash /></button>

@@ -27,7 +27,6 @@ export default function Login() {
       redirect: false
     })
       .then((callback) => {
-        console.log(callback);
         if (callback?.error) {
           alert('Invalid Credentials');
         }

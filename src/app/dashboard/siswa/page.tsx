@@ -3,6 +3,7 @@ import { BiEdit, BiTrash } from "react-icons/bi"
 import { MdKeyboardArrowRight } from "react-icons/md"
 import FilterDropdown from "../components/filterdropdown"
 import getAllSiswa from "@/actions/getAllSiswa"
+import Pagination from "@/app/components/pagination"
 
 export type SiswaType = {
   id?: string;
@@ -40,8 +41,10 @@ export type SiswaType = {
 
 export const dynamic = "force-dynamic";
 
-export default async function Siswa() {
-  const data = await getAllSiswa();
+export default async function Siswa({ searchParams, }: { searchParams: { [key: string]: string | undefined } }) {
+  const page = Number(searchParams.page) || 1;
+  const length = Number(searchParams.length) || 10;
+  const data = await getAllSiswa(page, length);
 
   return (
     <div className="px-4">
@@ -109,19 +112,14 @@ export default async function Siswa() {
       {/* end content */}
 
       {/* pagination */}
-      <div className="flex flex-col items-center my-2">
-        <span className="text-sm text-cyan-800">
-          Showing <span className="font-semibold">1</span> to <span className="font-semibold">10</span> of <span className="font-semibold">100</span> Entries
-        </span>
-        <div className="inline-flex mt-2 xs:mt-0">
-          <button className="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-cyan-800 rounded-s hover:bg-cyan-900">
-            Prev
-          </button>
-          <button className="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-cyan-800 rounded-e hover:bg-cyan-900">
-            Next
-          </button>
-        </div>
-      </div>
+      <Pagination
+        url="/dashboard/siswa"
+        next={data.pagination.next_page}
+        previous={data.pagination.previous_page}
+        total={data.pagination.total_pages}
+        current={data.pagination.current_page}
+        length={data.pagination.per_page}
+      />
       {/* end pagination */}
     </div>
   )

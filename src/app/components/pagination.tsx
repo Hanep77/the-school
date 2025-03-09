@@ -8,7 +8,6 @@ interface PaginationProps {
   total: number;
   length: number;
   current: number;
-  url: string;
 }
 
 export default function Pagination({ previous, next, total, length, current }: PaginationProps) {

@@ -4,6 +4,7 @@ import { MdKeyboardArrowRight } from "react-icons/md"
 import FilterDropdown from "../components/filterdropdown"
 import getAllSiswa from "@/actions/getAllSiswa"
 import Pagination from "@/app/components/pagination"
+import { PageProps } from "../../../../.next/types/app/dashboard/siswa/page"
 
 export type SiswaType = {
   id?: string;
@@ -41,9 +42,10 @@ export type SiswaType = {
 
 export const dynamic = "force-dynamic";
 
-export default async function Siswa({ searchParams, }: { searchParams: { [key: string]: string | undefined } }) {
-  const page = Number(searchParams.page) || 1;
-  const length = Number(searchParams.length) || 10;
+export default async function Siswa({ searchParams, }: PageProps) {
+  const params = await searchParams;
+  const page = Number(params.page) || 1;
+  const length = Number(params.length) || 10;
   const data = await getAllSiswa(page, length);
 
   return (
@@ -113,7 +115,6 @@ export default async function Siswa({ searchParams, }: { searchParams: { [key: s
 
       {/* pagination */}
       <Pagination
-        url="/dashboard/siswa"
         next={data.pagination.next_page}
         previous={data.pagination.previous_page}
         total={data.pagination.total_pages}

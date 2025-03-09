@@ -5,6 +5,9 @@ import { getServerSession } from "next-auth";
 const getAllSiswa = async (page: number, length: number) => {
   try {
     const session = await getServerSession(authOptions);
+    if (!session) {
+      throw new Error("error");
+    }
     const token = session?.token;
     const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + "/siswa?page=" + page + "&length=" + length, {
       headers: { Authorization: `Bearer ${token}` }

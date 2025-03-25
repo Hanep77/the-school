@@ -13,7 +13,7 @@ const getSiswa = async (id: string) => {
     });
     // const siswa = response.data;
     const datasiswa = response.data.data;
-    const formattedDate = format(new Date(datasiswa.tanggal_lahir), "dd MMMM yyyy", { locale: ind });
+    const formattedDate = format(new Date(datasiswa.tanggal_lahir), "yyyy-MM-dd", { locale: ind });
     const siswa = ({ ...datasiswa, tanggal_lahir: formattedDate });
     return siswa;
   } catch (err: unknown) {

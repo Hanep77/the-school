@@ -46,7 +46,7 @@ export default function Table({ data }: TableProps) {
             <td className="py-3 px-6 whitespace-nowrap">{item.alamat_tinggal}</td>
             <td className="py-3 px-6 whitespace-nowrap"><Link href={"/dashboard/siswa/details/" + item.id} className="text-blue-500 underline italic">lihat selengkapnya</Link></td>
             <td className="flex gap-2 text-xl py-3 px-6">
-              <button type="button" className="text-yellow-500"><BiEdit /></button>
+              <Link href={"/dashboard/siswa/edit/" + item.id} className="text-yellow-500"><BiEdit /></Link>
               <DeleteButton url="/siswa" id={item.id} action={setSiswa} token={session.data?.token} />
             </td>
           </tr>

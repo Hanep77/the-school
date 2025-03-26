@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { SiswaType } from "../../page";
-import getSiswa from "@/actions/getSiswa";
+import getSingleData from "@/actions/getSingleData";
 
 const siswaFields = [
   { label: "Nama", key: "nama_lengkap" },
@@ -34,7 +34,7 @@ const siswaFields = [
 
 export default async function Detail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const siswa = await getSiswa(id);
+  const siswa = await getSingleData(id, "siswa");
 
   return <div className="px-4">
     {/* breadcrumbs */}

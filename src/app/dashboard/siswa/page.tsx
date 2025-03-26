@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { MdKeyboardArrowRight } from "react-icons/md"
 import FilterDropdown from "../components/filterdropdown"
-import getAllSiswa from "@/actions/getAllSiswa"
+import getData from "@/actions/getData"
 import Pagination from "@/app/components/pagination"
 import { PageProps } from "../../../../.next/types/app/dashboard/siswa/page"
 import Table from "../components/table"
@@ -46,7 +46,7 @@ export default async function Siswa({ searchParams, }: PageProps) {
   const params = await searchParams;
   const page = Number(params.page) || 1;
   const length = Number(params.length) || 10;
-  const data = await getAllSiswa(page, length);
+  const data = await getData(page, length, "siswa");
 
   return (
     <div className="px-4">

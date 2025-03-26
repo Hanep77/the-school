@@ -2,11 +2,11 @@ import { authOptions } from "@/libs/nextauth";
 import axios from "axios";
 import { getServerSession } from "next-auth";
 
-const getAllSiswa = async (page: number, length: number) => {
+const getData = async (page: number, length: number, model: string) => {
   try {
     const session = await getServerSession(authOptions);
     const token = session?.token;
-    const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + "/siswa?page=" + page + "&length=" + length, {
+    const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + "/" + model + "?page=" + page + "&length=" + length, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -21,4 +21,4 @@ const getAllSiswa = async (page: number, length: number) => {
   }
 }
 
-export default getAllSiswa;
+export default getData;

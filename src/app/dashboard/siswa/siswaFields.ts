@@ -6,7 +6,6 @@ export const siswaFields = [
     data_type: "string",
     name: "nama_lengkap",
     label: "Nama Lengkap",
-    required: true
   },
   {
     type: "text",
@@ -73,7 +72,6 @@ export const siswaFields = [
     data_type: "string",
     name: "tanggal_lahir",
     label: "Tanggal Lahir",
-    required: true
   },
   {
     type: "select",
@@ -99,7 +97,6 @@ export const siswaFields = [
         title: "O"
       }
     ],
-    required: false
   },
   {
     type: "select",
@@ -132,7 +129,6 @@ export const siswaFields = [
         title: "Budha"
       }
     ],
-    required: false
   },
   {
     type: "select",
@@ -149,7 +145,6 @@ export const siswaFields = [
         title: "Perempuan"
       }
     ],
-    required: true
   },
   {
     type: "number",

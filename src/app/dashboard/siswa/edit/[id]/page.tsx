@@ -26,7 +26,7 @@ export default async function Detail({ params }: { params: Promise<{ id: string 
     {/* end page header */}
 
     {/* content */}
-    <FormInput fields={siswaFields} currentData={siswa} method="put" />
+    <FormInput fields={siswaFields} currentData={siswa} method="put" url="siswa" />
     {/* end content */}
   </div>
 }

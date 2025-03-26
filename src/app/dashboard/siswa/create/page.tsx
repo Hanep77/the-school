@@ -17,12 +17,12 @@ export default async function Detail() {
 
     {/* page header */}
     <div className="flex items-center justify-between mb-2">
-      <h2 className="text-2xl font-semibold text-cyan-800">Ubah Data Siswa</h2>
+      <h2 className="text-2xl font-semibold text-cyan-800">Buat Data Siswa</h2>
     </div>
     {/* end page header */}
 
     {/* content */}
-    <FormInput fields={siswaFields} method="post" />
+    <FormInput fields={siswaFields} method="post" url="siswa" />
     {/* end content */}
   </div>
 }

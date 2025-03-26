@@ -6,6 +6,7 @@ import Select from "@/app/components/select";
 import { useSession } from "next-auth/react";
 import { UserType } from "@/libs/nextauth";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export interface FieldConfig {
   type: string;
@@ -19,17 +20,18 @@ export interface FieldConfig {
 interface FormInputProps {
   fields: FieldConfig[],
   currentData?: Record<string, string>,
-  method: string
+  method: string,
+  url: string;
 }
 
-export default function FormInput({ fields, currentData, method }: FormInputProps) {
+export default function FormInput({ fields, currentData, method, url }: FormInputProps) {
+  const router = useRouter();
   const session = useSession();
   const [errors, setErrors] = useState<{ [key: string]: string }>();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
-    console.log(formData);
 
     const data: Record<string, string | number | boolean> = {};
     fields.map(field => {
@@ -42,20 +44,20 @@ export default function FormInput({ fields, currentData, method }: FormInputProp
       }
     })
 
-    console.log(data);
-
     const token = (session?.data?.user as UserType).token;
     try {
       let response;
       if (method == "post") {
-        response = await axios.post(process.env.NEXT_PUBLIC_API_URL + "/siswa", data, { headers: { Authorization: `Bearer ${token}` } });
+        response = await axios.post(process.env.NEXT_PUBLIC_API_URL + "/" + url, data, { headers: { Authorization: `Bearer ${token}` } });
       } else if (method == "put" && currentData) {
-        response = await axios.put(process.env.NEXT_PUBLIC_API_URL + "/siswa/" + currentData.id, data, { headers: { Authorization: `Bearer ${token}` } });
+        response = await axios.put(process.env.NEXT_PUBLIC_API_URL + "/" + url + "/" + currentData.id, data, { headers: { Authorization: `Bearer ${token}` } });
       }
-      console.log(response);
+
+      if (response?.status == 200 || response?.status == 201) {
+        router.push("/dashboard/" + url);
+      }
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
-        console.log(err);
         setErrors(err.response?.data.errors);
       }
     }
@@ -71,19 +73,23 @@ export default function FormInput({ fields, currentData, method }: FormInputProp
               label={field.label}
               name={field.name}
               defaultValue={currentData ? currentData[field.name] : field.label}
+              error={errors && errors[field.name]}
               options={field.options}
             />
           }
 
           if (field.type == "textarea") {
-            return <textarea
-              key={index}
-              rows={2}
-              className="col-span-2 border border-zinc-400 rounded p-2"
-              placeholder={field.label}
-              defaultValue={currentData ? currentData[field.name] : ""}
-              name={field.name}>
-            </textarea>
+            const error = errors && errors[field.name];
+            return <div key={index} className="col-span-2">
+              <textarea
+                rows={2}
+                className={`border w-full ${error ? "border-red-500" : "border-zinc-400"} rounded p-2`}
+                placeholder={field.label}
+                defaultValue={currentData ? currentData[field.name] : ""}
+                name={field.name}>
+              </textarea>
+              {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
+            </div>
           }
 
           return <Input
@@ -91,7 +97,7 @@ export default function FormInput({ fields, currentData, method }: FormInputProp
             type={field.type}
             name={field.name}
             label={field.label}
-            error={errors?.name}
+            error={errors && errors[field.name]}
             defaultValue={currentData && currentData[field.name]}
             required={field.required}
           />

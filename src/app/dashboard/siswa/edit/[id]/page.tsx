@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import getSiswa from "@/actions/getSiswa";
+import getSingleData from "@/actions/getSingleData";
 import FormInput from "@/app/dashboard/components/formInput";
 import { siswaFields } from "../../siswaFields";
 
 export default async function Detail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const siswa = await getSiswa(id);
+  const siswa = await getSingleData(id, "siswa");
 
   return <div className="px-4 mb-4">
     {/* breadcrumbs */}

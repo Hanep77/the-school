@@ -18,7 +18,7 @@ export interface FieldConfig {
 
 interface FormInputProps {
   fields: FieldConfig[],
-  currentData: Record<string, string>,
+  currentData?: Record<string, string>,
   method: string
 }
 
@@ -42,12 +42,14 @@ export default function FormInput({ fields, currentData, method }: FormInputProp
       }
     })
 
+    console.log(data);
+
     const token = (session?.data?.user as UserType).token;
     try {
       let response;
       if (method == "post") {
         response = await axios.post(process.env.NEXT_PUBLIC_API_URL + "/siswa", data, { headers: { Authorization: `Bearer ${token}` } });
-      } else if (method == "put") {
+      } else if (method == "put" && currentData) {
         response = await axios.put(process.env.NEXT_PUBLIC_API_URL + "/siswa/" + currentData.id, data, { headers: { Authorization: `Bearer ${token}` } });
       }
       console.log(response);
@@ -68,7 +70,7 @@ export default function FormInput({ fields, currentData, method }: FormInputProp
               key={index}
               label={field.label}
               name={field.name}
-              defaultValue={currentData[field.name]}
+              defaultValue={currentData ? currentData[field.name] : field.label}
               options={field.options}
             />
           }
@@ -79,7 +81,7 @@ export default function FormInput({ fields, currentData, method }: FormInputProp
               rows={2}
               className="col-span-2 border border-zinc-400 rounded p-2"
               placeholder={field.label}
-              defaultValue={currentData[field.name]}
+              defaultValue={currentData ? currentData[field.name] : ""}
               name={field.name}>
             </textarea>
           }
@@ -90,7 +92,7 @@ export default function FormInput({ fields, currentData, method }: FormInputProp
             name={field.name}
             label={field.label}
             error={errors?.name}
-            defaultValue={currentData[field.name]}
+            defaultValue={currentData && currentData[field.name]}
             required={field.required}
           />
         })

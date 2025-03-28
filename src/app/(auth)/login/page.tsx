@@ -44,10 +44,6 @@ export default function Login() {
         <form onSubmit={authRequest} className="flex flex-col gap-3">
           <Input type="text" name="username" label="Username" required={true} />
           <Input type="password" name="password" label="Password" required={true} />
-          <select name="cars" id="cars" className="h-8 border border-zinc-400 rounded px-2">
-            <option value="admin">Admin</option>
-            <option value="guru">Guru</option>
-          </select>
           <button type="submit" className="h-10 bg-cyan-800 hover:bg-cyan-700 active:bg-cyan-600 text-white rounded">
             Sign in
           </button>

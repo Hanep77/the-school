@@ -34,17 +34,28 @@ export const authOptions: AuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, session, user, trigger }) {
+      if (trigger === "update") {
+        token.token = session.token;
+        token.expires = session.expires;
+      }
+
       if (user) {
+        const today = new Date();
+        const nextThreeDays = new Date(today.setDate(today.getDate() + 3));
+
         token.user = user;
         token.token = user.token;
+        token.expires = nextThreeDays.getTime();
       }
+
       return token;
     },
 
     async session({ session, token }) {
       session.user = token.user as UserType;
       session.token = token.token as string;
+      session.expires = token.expires as number;
       return session;
     },
   },

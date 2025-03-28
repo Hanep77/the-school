@@ -1,8 +1,39 @@
+"use client";
+
+import { axiosAuth } from "@/libs/axios";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useEffect } from "react";
 import { GiTeacher } from "react-icons/gi";
 import { PiNotificationFill, PiStudent } from "react-icons/pi";
 
 export default function Dashboard() {
+  const tomorrow = Date.now() + 1 * 24 * 60 * 60 * 1000;
+  const nextThreeDays = Date.now() + 3 * 24 * 60 * 60 * 1000;
+
+  const { data: session, update } = useSession();
+
+  const updateToken = async () => {
+    const response = await axiosAuth.get("/refresh-token");
+    await update({ ...session, token: response.data.credentials, expires: nextThreeDays })
+  }
+
+  useEffect(() => {
+    if (!session?.expires) {
+      return;
+    }
+
+    if (Date.now() > session.expires) {
+      signOut();
+      return;
+    }
+
+    if (tomorrow > session.expires) {
+      updateToken();
+    }
+  }, []);
+
+
   return (
     <div className="p-4">
       {/* breadcrumbs */}

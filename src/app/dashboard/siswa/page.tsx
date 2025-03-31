@@ -40,6 +40,16 @@ export type SiswaType = {
   updated_at?: string;
 };
 
+const fields = [
+  { label: "Nama", name: "nama_lengkap" },
+  { label: "NIS", name: "nis" },
+  { label: "NISN", name: "nisn" },
+  { label: "Gender", name: "gender" },
+  { label: "Agama", name: "agama" },
+  { label: "Tanggal Lahir", name: "tanggal_lahir" },
+  { label: "Alamat", name: "alamat_tinggal" },
+];
+
 export const dynamic = "force-dynamic";
 
 export default async function Siswa({ searchParams, }: PageProps) {
@@ -54,7 +64,7 @@ export default async function Siswa({ searchParams, }: PageProps) {
       <div className="flex items-center">
         <Link href={"/dashboard"}>Dashboard</Link>
         <MdKeyboardArrowRight className="text-xl" />
-        <Link href={"/dashboard/guru"}>Siswa</Link>
+        <Link href={"/dashboard/siswa"}>Siswa</Link>
       </div>
       {/* end breadcrumbs */}
 
@@ -76,7 +86,7 @@ export default async function Siswa({ searchParams, }: PageProps) {
       {/* end filter */}
 
       {/* content */}
-      <Table data={data.data} />
+      <Table data={data.data} fields={fields} />
       {/* end content */}
 
       {/* pagination */}

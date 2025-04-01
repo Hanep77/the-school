@@ -1,41 +1,46 @@
-import Link from "next/link";
-import { BiEdit, BiTrash } from "react-icons/bi";
-import { MdKeyboardArrowRight } from "react-icons/md";
+import Link from "next/link"
+import { MdKeyboardArrowRight } from "react-icons/md"
+import FilterDropdown from "../components/filterdropdown"
+import getData from "@/actions/getData"
+import Pagination from "@/app/components/pagination"
+import { PageProps } from "../../../../.next/types/app/dashboard/guru/page"
+import Table from "../components/table"
 
-const data = [
-  {
-    id: "123",
-    nama: "bu guru 1",
-    gender: "Perempuan",
-    nik: 12345678910122,
-    no_telepon: "08123456789",
-    email: "buguru1@gmail.com",
-    alamat: "jl. Tasik",
-    is_active: true,
-  },
-  {
-    id: "124",
-    nama: "bu guru 2",
-    gender: "Perempuan",
-    nik: 12345678910123,
-    no_telepon: "08123456788",
-    email: "buguru2@gmail.com",
-    alamat: "jl. Tasik",
-    is_active: false,
-  },
-  {
-    id: "125",
-    nama: "pak guru 1",
-    gender: "Laki-laki",
-    nik: 12345678910124,
-    no_telepon: "08123456787",
-    email: "pakguru1@gmail.com",
-    alamat: "jl. Tasik",
-    is_active: true,
-  }
-]
+export const dynamic = "force-dynamic";
 
-export default function Guru() {
+export type GuruType = {
+  id?: string;
+  sekolah_id?: string;
+  nik: string;
+  email: string;
+  nama_lengkap: string;
+  nama_panggilan: string;
+  gender: "L" | "P";
+  tempat_lahir: string;
+  tanggal_lahir: string;
+  agama: string;
+  kewarga_negaraan: string;
+  anak_ke: number;
+  jumlah_saudara_kandung: number;
+  alamat_tinggal: string;
+  no_telepon: string;
+  is_active: boolean;
+};
+
+const fields = [
+  { label: "Nama", name: "nama_lengkap" },
+  { label: "NIK", name: "nik" },
+  { label: "Gender", name: "gender" },
+  { label: "Email", name: "email" },
+  { label: "Alamat", name: "alamat_tinggal" },
+];
+
+export default async function Siswa({ searchParams, }: PageProps) {
+  const params = await searchParams;
+  const page = Number(params.page) || 1;
+  const length = Number(params.length) || 10;
+  const data = await getData(page, length, "guru");
+
   return (
     <div className="px-4">
       {/* breadcrumbs */}
@@ -49,47 +54,32 @@ export default function Guru() {
       {/* page header */}
       <div className="flex items-center justify-between mb-2">
         <h2 className="text-2xl font-semibold text-cyan-800">Guru</h2>
-        <button type="button" className="py-1 px-2 bg-green-500 text-white rounded hover:bg-green-600">+ Add</button>
+        <Link href="/dashboard/guru/create" className="py-1 px-2 bg-green-500 text-white rounded hover:bg-green-600">+ Add</Link>
       </div>
       {/* end page header */}
 
+      {/* filter */}
+      <div className="flex gap-2 mb-2">
+        <form>
+          <input type="text" name="search" placeholder="search..." className="h-8 px-2 rounded outline-none border border-zinc-300" />
+        </form>
+      </div>
+      {/* end filter */}
+
       {/* content */}
-      <div className="bg-zinc-100 border border-zinc-300 rounded overflow-x-auto">
-        <table className="table w-full text-sm text-left rtl:text-right">
-          <thead className="">
-            <tr>
-              <th className="py-3 px-6">Nama</th>
-              <th className="py-3 px-6">Gender</th>
-              <th className="py-3 px-6">NIK</th>
-              <th className="py-3 px-6">No. Telp</th>
-              <th className="py-3 px-6">Email</th>
-              <th className="py-3 px-6">Alamat</th>
-              <th className="py-3 px-6">Aktif</th>
-              <th className="py-3 px-6">Penugasan</th>
-              <th className="py-3 px-6">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="text-zinc-600">
-            {data.map((item, index) => (
-              <tr key={index} className="border-b">
-                <td className="py-3 px-6 whitespace-nowrap">{item.nama}</td>
-                <td className="py-3 px-6 whitespace-nowrap">{item.gender}</td>
-                <td className="py-3 px-6 whitespace-nowrap">{item.nik}</td>
-                <td className="py-3 px-6 whitespace-nowrap">{item.no_telepon}</td>
-                <td className="py-3 px-6 whitespace-nowrap">{item.email}</td>
-                <td className="py-3 px-6 whitespace-nowrap">{item.alamat}</td>
-                <td className="py-3 px-6 whitespace-nowrap"><div className={`w-4 h-4 ${item.is_active ? "bg-green-500" : "bg-red-500"} rounded-full`}></div></td>
-                <td className="py-3 px-6 whitespace-nowrap"><Link href={"/dashboard/guru/penugasan/" + item.id} className="text-blue-500 underline italic">lihat selengkapnya</Link></td>
-                <td className="flex gap-2 text-xl py-3 px-6">
-                  <button type="button" className="text-yellow-500"><BiEdit /></button>
-                  <button type="button" className="text-red-500"><BiTrash /></button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div >
+      <Table data={data.data} fields={fields} url="guru" />
       {/* end content */}
-    </div >
+
+      {/* pagination */}
+      <Pagination
+        next={data.pagination.next_page}
+        previous={data.pagination.previous_page}
+        total={data.pagination.total_pages}
+        current={data.pagination.current_page}
+        length={data.pagination.per_page}
+      />
+      {/* end pagination */}
+    </div>
   )
 }
+

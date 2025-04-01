@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { MdKeyboardArrowRight } from "react-icons/md"
-import FilterDropdown from "../components/filterdropdown"
 import getData from "@/actions/getData"
 import Pagination from "@/app/components/pagination"
 import { PageProps } from "../../../../.next/types/app/dashboard/guru/page"

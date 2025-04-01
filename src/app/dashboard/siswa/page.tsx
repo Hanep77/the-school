@@ -76,7 +76,7 @@ export default async function Siswa({ searchParams, }: PageProps) {
       {/* end page header */}
 
       {/* filter */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 mb-2">
         <form>
           <input type="text" name="search" placeholder="search..." className="h-8 px-2 rounded outline-none border border-zinc-300" />
         </form>

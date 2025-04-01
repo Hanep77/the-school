@@ -2,13 +2,12 @@
 
 import { Dispatch, SetStateAction } from "react";
 import { BiTrash } from "react-icons/bi"
-import { SiswaType } from "../siswa/page";
 import axios from "axios";
 
 interface DeleteBtnProps {
   url: string
   id?: string
-  action: Dispatch<SetStateAction<SiswaType[]>>
+  action: Dispatch<SetStateAction<Record<string, string>[]>>
   token?: string
 }
 

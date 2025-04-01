@@ -30,7 +30,7 @@ export default function FilterDropdown({ label, values }: FilterDropdownProps) {
       <button
         type="button"
         id="dropdownDefaultButton"
-        className="text-white bg-cyan-800 font-medium rounded text-sm h-8 px-4 text-center inline-flex items-center mb-2"
+        className="text-white bg-cyan-800 font-medium rounded text-sm h-8 px-4 text-center inline-flex items-center"
         onClick={() => setIsOpen(!isOpen)}>
         {label}<MdKeyboardArrowDown className="text-xl" />
       </button>

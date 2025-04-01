@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { SiswaType } from "../../page";
 import getSingleData from "@/actions/getSingleData";
-import { siswaFields } from "../../siswaFields";
+import { guruFields } from "../../guruFields";
+import { GuruType } from "../../page";
 
 export default async function Detail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const siswa = await getSingleData(id, "siswa");
+  const data = await getSingleData(id, "guru");
 
   return <div className="px-4">
     {/* breadcrumbs */}
@@ -28,11 +28,11 @@ export default async function Detail({ params }: { params: Promise<{ id: string 
     {/* content */}
     <div className="bg-zinc-100 p-4 mb-4 border border-zinc-300 rounded overflow-x-auto">
       <div className="grid grid-cols-2 gap-4">
-        {siswaFields.map(({ label, name, data_type }) => {
-          if (!siswa) {
+        {guruFields.map(({ label, name, data_type }) => {
+          if (!data) {
             return
           }
-          const value = name in siswa ? siswa[name as keyof SiswaType] : undefined;
+          const value = name in data ? data[name as keyof GuruType] : undefined;
 
           return (
             <div key={name}>

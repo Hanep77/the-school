@@ -40,6 +40,16 @@ export type SiswaType = {
   updated_at?: string;
 };
 
+const fields = [
+  { label: "Nama", name: "nama_lengkap" },
+  { label: "NIS", name: "nis" },
+  { label: "NISN", name: "nisn" },
+  { label: "Gender", name: "gender" },
+  { label: "Agama", name: "agama" },
+  { label: "Tanggal Lahir", name: "tanggal_lahir" },
+  { label: "Alamat", name: "alamat_tinggal" },
+];
+
 export const dynamic = "force-dynamic";
 
 export default async function Siswa({ searchParams, }: PageProps) {
@@ -54,7 +64,7 @@ export default async function Siswa({ searchParams, }: PageProps) {
       <div className="flex items-center">
         <Link href={"/dashboard"}>Dashboard</Link>
         <MdKeyboardArrowRight className="text-xl" />
-        <Link href={"/dashboard/guru"}>Siswa</Link>
+        <Link href={"/dashboard/siswa"}>Siswa</Link>
       </div>
       {/* end breadcrumbs */}
 
@@ -66,7 +76,7 @@ export default async function Siswa({ searchParams, }: PageProps) {
       {/* end page header */}
 
       {/* filter */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 mb-2">
         <form>
           <input type="text" name="search" placeholder="search..." className="h-8 px-2 rounded outline-none border border-zinc-300" />
         </form>
@@ -76,7 +86,7 @@ export default async function Siswa({ searchParams, }: PageProps) {
       {/* end filter */}
 
       {/* content */}
-      <Table data={data.data} />
+      <Table data={data.data} fields={fields} url="siswa" />
       {/* end content */}
 
       {/* pagination */}

@@ -11,7 +11,7 @@ export default async function Detail() {
       <MdKeyboardArrowRight className="text-xl" />
       <Link href={"/dashboard/siswa"}>Siswa</Link>
       <MdKeyboardArrowRight className="text-xl" />
-      <Link href={""}>Edit</Link>
+      <Link href={""}>Create</Link>
     </div>
     {/* end breadcrumbs */}
 

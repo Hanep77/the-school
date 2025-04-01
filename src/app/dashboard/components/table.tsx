@@ -8,12 +8,12 @@ import { useSession } from "next-auth/react";
 
 interface TableProps {
   data: Record<string, string>[],
-  fields: { label: string, name: string }[]
+  fields: { label: string, name: string }[],
+  url: string
 }
 
-export default function Table({ data, fields }: TableProps) {
+export default function Table({ data, fields, url }: TableProps) {
   const [tableData, setTableData] = useState<Record<string, string>[]>(data);
-  console.log(data);
   const session = useSession();
 
   useEffect(() => {
@@ -35,13 +35,12 @@ export default function Table({ data, fields }: TableProps) {
         {tableData.map((item: Record<string, string>, index: number) => (
           <tr key={index} className="border-b">
             {fields.map(field => {
-              console.log(item);
               return <td className="py-3 px-6 whitespace-nowrap" key={field.name}>{item[field.name]}</td>
             })}
-            <td className="py-3 px-6 whitespace-nowrap"><Link href={"/dashboard/siswa/details/" + item.id} className="text-blue-500 underline italic">lihat selengkapnya</Link></td>
+            <td className="py-3 px-6 whitespace-nowrap"><Link href={"/dashboard/" + url + "/details/" + item.id} className="text-blue-500 underline italic">lihat selengkapnya</Link></td>
             <td className="flex gap-2 text-xl py-3 px-6">
-              <Link href={"/dashboard/siswa/edit/" + item.id} className="text-yellow-500"><BiEdit /></Link>
-              <DeleteButton url="/siswa" id={item.id} action={setTableData} token={session.data?.token} />
+              <Link href={"/dashboard/" + url + "/edit/" + item.id} className="text-yellow-500"><BiEdit /></Link>
+              <DeleteButton url={"/" + url} id={item.id} action={setTableData} token={session.data?.token} />
             </td>
           </tr>
         ))}

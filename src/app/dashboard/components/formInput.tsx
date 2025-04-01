@@ -28,7 +28,6 @@ export default function FormInput({ fields, currentData, method, url }: FormInpu
   const router = useRouter();
   const session = useSession();
   const [errors, setErrors] = useState<{ [key: string]: string }>();
-  console.log(currentData);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();

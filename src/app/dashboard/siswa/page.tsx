@@ -86,7 +86,7 @@ export default async function Siswa({ searchParams, }: PageProps) {
       {/* end filter */}
 
       {/* content */}
-      <Table data={data.data} fields={fields} />
+      <Table data={data.data} fields={fields} url="siswa" />
       {/* end content */}
 
       {/* pagination */}

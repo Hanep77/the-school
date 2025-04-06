@@ -5,6 +5,7 @@ import { BiCalendar } from "react-icons/bi";
 import { GiTeacher } from "react-icons/gi";
 import { MdBook, MdDashboard } from "react-icons/md";
 import { PiStudent } from "react-icons/pi";
+import { RiParentFill } from "react-icons/ri";
 import { SiGoogleclassroom } from "react-icons/si";
 
 export type dashboardMenuType = {
@@ -35,6 +36,12 @@ const useDashboardMenu = () => {
       href: "/dashboard/guru",
       active: pathname === '/dashboard/guru',
       icon: GiTeacher
+    },
+    {
+      label: "Wali",
+      href: "/dashboard/wali",
+      active: pathname === '/dashboard/wali',
+      icon: RiParentFill
     },
     {
       label: "Kelas",

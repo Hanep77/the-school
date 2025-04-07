@@ -51,8 +51,8 @@ const useDashboardMenu = () => {
     },
     {
       label: "Pelajaran",
-      href: "/dashboard/pelajaran",
-      active: pathname === '/dashboard/pelajaran',
+      href: "/dashboard/matapelajaran",
+      active: pathname === '/dashboard/matapelajaran',
       icon: MdBook
     },
     {

@@ -2,11 +2,11 @@ import { usePathname } from "next/navigation"
 import { useMemo } from "react";
 import { IconType } from "react-icons";
 import { BiCalendar } from "react-icons/bi";
+import { FaSchool } from "react-icons/fa";
 import { GiTeacher } from "react-icons/gi";
 import { MdBook, MdDashboard } from "react-icons/md";
 import { PiStudent } from "react-icons/pi";
 import { RiParentFill } from "react-icons/ri";
-import { SiGoogleclassroom } from "react-icons/si";
 
 export type dashboardMenuType = {
   label: string,
@@ -44,10 +44,10 @@ const useDashboardMenu = () => {
       icon: RiParentFill
     },
     {
-      label: "Kelas",
-      href: "/dashboard/kelas",
-      active: pathname === '/dashboard/kelas',
-      icon: SiGoogleclassroom
+      label: "Tingkat",
+      href: "/dashboard/tingkat",
+      active: pathname === '/dashboard/tingkat',
+      icon: FaSchool
     },
     {
       label: "Pelajaran",

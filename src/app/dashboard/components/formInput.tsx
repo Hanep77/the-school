@@ -58,6 +58,7 @@ export default function FormInput({ fields, currentData, method, url }: FormInpu
       }
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
+        console.log(err);
         setErrors(err.response?.data.errors);
       }
     }

@@ -4,7 +4,7 @@ import { IconType } from "react-icons";
 import { BiCalendar } from "react-icons/bi";
 import { FaSchool } from "react-icons/fa";
 import { GiTeacher } from "react-icons/gi";
-import { MdBook, MdDashboard } from "react-icons/md";
+import { MdBook, MdDashboard, MdSportsGymnastics } from "react-icons/md";
 import { PiStudent } from "react-icons/pi";
 import { RiParentFill } from "react-icons/ri";
 
@@ -60,6 +60,12 @@ const useDashboardMenu = () => {
       href: "/dashboard/tahun-ajaran",
       active: pathname === '/dashboard/tahun-ajaran',
       icon: BiCalendar
+    },
+    {
+      label: "Ekskul",
+      href: "/dashboard/ekskul",
+      active: pathname === '/dashboard/ekskul',
+      icon: MdSportsGymnastics
     },
   ], [pathname]);
 

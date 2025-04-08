@@ -2,7 +2,7 @@ import Link from "next/link"
 import { MdKeyboardArrowRight } from "react-icons/md"
 import getData from "@/actions/getData"
 import Pagination from "@/app/components/pagination"
-import { PageProps } from "../../../../.next/types/app/dashboard/pelajaran/page"
+import { PageProps } from "../../../../.next/types/app/dashboard/matapelajaran/page"
 import Table from "../components/table"
 
 export const dynamic = "force-dynamic";

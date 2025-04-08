@@ -13,17 +13,12 @@ export type GuruType = {
   nik: string;
   email: string;
   nama_lengkap: string;
-  nama_panggilan: string;
   gender: "L" | "P";
-  tempat_lahir: string;
-  tanggal_lahir: string;
-  agama: string;
-  kewarga_negaraan: string;
-  anak_ke: number;
-  jumlah_saudara_kandung: number;
   alamat_tinggal: string;
   no_telepon: string;
   is_active: boolean;
+  created_at: string;
+  updated_at: string;
 };
 
 const fields = [

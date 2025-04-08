@@ -21,7 +21,7 @@ export default async function Detail({ params }: { params: Promise<{ id: string 
 
     {/* page header */}
     <div className="flex items-center justify-between mb-2">
-      <h2 className="text-2xl font-semibold text-cyan-800">Ubah Data Siswa</h2>
+      <h2 className="text-2xl font-semibold text-cyan-800">Ubah Data Guru</h2>
     </div>
     {/* end page header */}
 

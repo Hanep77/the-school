@@ -12,18 +12,24 @@ export type WaliType = {
   sekolah_id?: string;
   nik: string;
   email: string;
+  no_telepon: string;
   nama_lengkap: string;
   nama_panggilan: string;
   gender: "L" | "P";
   tempat_lahir: string;
   tanggal_lahir: string;
-  agama: string;
-  kewarga_negaraan: string;
-  anak_ke: number;
-  jumlah_saudara_kandung: number;
   alamat_tinggal: string;
-  no_telepon: string;
-  is_active: boolean;
+  pendidikan_terakhir: string;
+  pekerjaan: string;
+  hubungan: string;
+  nama_ibu: string;
+  pendidikan_terakhir_ibu: string;
+  pekerjaan_ibu: string;
+  nama_ayah: string;
+  pendidikan_terakhir_ayah: string;
+  pekerjaan_ayah: string;
+  created_at: string;
+  updated_at: string;
 };
 
 const fields = [

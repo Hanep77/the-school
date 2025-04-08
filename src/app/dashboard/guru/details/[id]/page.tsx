@@ -13,7 +13,7 @@ export default async function Detail({ params }: { params: Promise<{ id: string 
     <div className="flex items-center">
       <Link href={"/dashboard"}>Dashboard</Link>
       <MdKeyboardArrowRight className="text-xl" />
-      <Link href={"/dashboard/siswa"}>Siswa</Link>
+      <Link href={"/dashboard/guru"}>Guru</Link>
       <MdKeyboardArrowRight className="text-xl" />
       <Link href={""}>Detail</Link>
     </div>
@@ -21,7 +21,7 @@ export default async function Detail({ params }: { params: Promise<{ id: string 
 
     {/* page header */}
     <div className="flex items-center justify-between mb-2">
-      <h2 className="text-2xl font-semibold text-cyan-800">Detail Siswa</h2>
+      <h2 className="text-2xl font-semibold text-cyan-800">Detail Guru</h2>
     </div>
     {/* end page header */}
 

@@ -1,86 +1,73 @@
 import Link from "next/link"
-import { BiEdit, BiTrash } from "react-icons/bi"
 import { MdKeyboardArrowRight } from "react-icons/md"
-import FilterDropdown from "../components/filterdropdown"
+import getData from "@/actions/getData"
+import Pagination from "@/app/components/pagination"
+import { PageProps } from "../../../../.next/types/app/dashboard/tahun-ajaran/page"
+import Table from "../components/table"
 
-const data = [
-  {
-    tahun: "2022/2023",
-  },
-  {
-    tahun: "2023/2024",
-  },
-  {
-    tahun: "2024/2025",
-  },
-]
+export const dynamic = "force-dynamic";
 
-export default function Siswa() {
+export type TahunAjaranType = {
+  id?: string;
+  sekolah_id?: string;
+  nama: string;
+  types: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+const fields = [
+  { label: "Nama", name: "nama" },
+  { label: "Tipe", name: "types" },
+];
+
+export default async function Siswa({ searchParams, }: PageProps) {
+  const params = await searchParams;
+  const page = Number(params.page) || 1;
+  const length = Number(params.length) || 10;
+  const data = await getData(page, length, "tahun-ajaran");
+
   return (
     <div className="px-4">
       {/* breadcrumbs */}
       <div className="flex items-center">
         <Link href={"/dashboard"}>Dashboard</Link>
         <MdKeyboardArrowRight className="text-xl" />
-        <Link href={"/dashboard/guru"}>Siswa</Link>
+        <Link href={"/dashboard/tahun-ajaran"}>Tahun Ajaran</Link>
       </div>
       {/* end breadcrumbs */}
 
       {/* page header */}
       <div className="flex items-center justify-between mb-2">
-        <h2 className="text-2xl font-semibold text-cyan-800">Siswa</h2>
-        <button type="button" className="py-1 px-2 bg-green-500 text-white rounded hover:bg-green-600">+ Add</button>
+        <h2 className="text-2xl font-semibold text-cyan-800">Tahun Ajaran</h2>
+        <Link href="/dashboard/tahun-ajaran/create" className="py-1 px-2 bg-green-500 text-white rounded hover:bg-green-600">+ Add</Link>
       </div>
       {/* end page header */}
 
       {/* filter */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 mb-2">
         <form>
           <input type="text" name="search" placeholder="search..." className="h-8 px-2 rounded outline-none border border-zinc-300" />
         </form>
-        <FilterDropdown label="Urutan" values={["ASC", "DESC"]} />
       </div>
       {/* end filter */}
 
       {/* content */}
-      <div className="bg-zinc-100 border border-zinc-300 rounded overflow-x-auto">
-        <table className="table w-full text-sm text-left rtl:text-right">
-          <thead className="">
-            <tr>
-              <th className="py-3 px-6">Tahun Ajaran</th>
-              <th className="py-3 px-6">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="text-zinc-600">
-            {data.map((item, index) => (
-              <tr key={index} className="border-b">
-                <td className="py-3 px-6 whitespace-nowrap">{item.tahun}</td>
-                <td className="flex gap-2 text-xl py-3 px-6">
-                  <button type="button" className="text-yellow-500"><BiEdit /></button>
-                  <button type="button" className="text-red-500"><BiTrash /></button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table data={data.data} fields={fields} url="tahun-ajaran" details={false} />
       {/* end content */}
 
       {/* pagination */}
-      <div className="flex flex-col items-center my-2">
-        <span className="text-sm text-cyan-800">
-          Showing <span className="font-semibold">1</span> to <span className="font-semibold">10</span> of <span className="font-semibold">100</span> Entries
-        </span>
-        <div className="inline-flex mt-2 xs:mt-0">
-          <button className="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-cyan-800 rounded-s hover:bg-cyan-900">
-            Prev
-          </button>
-          <button className="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-cyan-800 rounded-e hover:bg-cyan-900">
-            Next
-          </button>
-        </div>
-      </div>
+      <Pagination
+        next={data.pagination.next_page}
+        previous={data.pagination.previous_page}
+        total={data.pagination.total_pages}
+        current={data.pagination.current_page}
+        length={data.pagination.per_page}
+      />
       {/* end pagination */}
     </div>
   )
 }
+
+

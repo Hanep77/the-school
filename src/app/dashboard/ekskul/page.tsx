@@ -2,7 +2,7 @@ import Link from "next/link"
 import { MdKeyboardArrowRight } from "react-icons/md"
 import getData from "@/actions/getData"
 import Pagination from "@/app/components/pagination"
-import { PageProps } from "../../../../.next/types/app/dashboard/guru/page"
+import { PageProps } from "../../../../.next/types/app/dashboard/ekskul/page"
 import Table from "../components/table"
 
 export const dynamic = "force-dynamic";
@@ -10,45 +10,35 @@ export const dynamic = "force-dynamic";
 export type GuruType = {
   id?: string;
   sekolah_id?: string;
-  nik: string;
-  email: string;
-  nama_lengkap: string;
-  gender: "L" | "P";
-  alamat_tinggal: string;
-  no_telepon: string;
-  is_active: boolean;
+  nama: string;
   created_at: string;
   updated_at: string;
 };
 
 const fields = [
-  { label: "Nama", name: "nama_lengkap" },
-  { label: "NIK", name: "nik" },
-  { label: "Gender", name: "gender" },
-  { label: "Email", name: "email" },
-  { label: "Alamat", name: "alamat_tinggal" },
+  { label: "Nama", name: "nama" },
 ];
 
 export default async function Siswa({ searchParams, }: PageProps) {
   const params = await searchParams;
   const page = Number(params.page) || 1;
   const length = Number(params.length) || 10;
-  const data = await getData(page, length, "guru");
+  const data = await getData(page, length, "ekskul");
 
   return (
     <div className="px-4">
       {/* breadcrumbs */}
       <div className="flex items-center">
-        <Link href={"/dashboard"}>Dashboard</Link>
+        <Link href={"/ekskul"}>Ekskul</Link>
         <MdKeyboardArrowRight className="text-xl" />
-        <Link href={"/dashboard/guru"}>Guru</Link>
+        <Link href={"/dashboard/ekskul"}>Ekskul</Link>
       </div>
       {/* end breadcrumbs */}
 
       {/* page header */}
       <div className="flex items-center justify-between mb-2">
-        <h2 className="text-2xl font-semibold text-cyan-800">Guru</h2>
-        <Link href="/dashboard/guru/create" className="py-1 px-2 bg-green-500 text-white rounded hover:bg-green-600">+ Add</Link>
+        <h2 className="text-2xl font-semibold text-cyan-800">Ekskul</h2>
+        <Link href="/dashboard/ekskul/create" className="py-1 px-2 bg-green-500 text-white rounded hover:bg-green-600">+ Add</Link>
       </div>
       {/* end page header */}
 
@@ -61,7 +51,7 @@ export default async function Siswa({ searchParams, }: PageProps) {
       {/* end filter */}
 
       {/* content */}
-      <Table data={data.data} fields={fields} url="guru" />
+      <Table data={data.data} fields={fields} url="ekskul" details={false} />
       {/* end content */}
 
       {/* pagination */}

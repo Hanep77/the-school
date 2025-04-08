@@ -2,10 +2,11 @@ import { usePathname } from "next/navigation"
 import { useMemo } from "react";
 import { IconType } from "react-icons";
 import { BiCalendar } from "react-icons/bi";
+import { FaSchool } from "react-icons/fa";
 import { GiTeacher } from "react-icons/gi";
-import { MdBook, MdDashboard } from "react-icons/md";
+import { MdBook, MdDashboard, MdSportsGymnastics } from "react-icons/md";
 import { PiStudent } from "react-icons/pi";
-import { SiGoogleclassroom } from "react-icons/si";
+import { RiParentFill } from "react-icons/ri";
 
 export type dashboardMenuType = {
   label: string,
@@ -37,15 +38,21 @@ const useDashboardMenu = () => {
       icon: GiTeacher
     },
     {
-      label: "Kelas",
-      href: "/dashboard/kelas",
-      active: pathname === '/dashboard/kelas',
-      icon: SiGoogleclassroom
+      label: "Wali",
+      href: "/dashboard/wali",
+      active: pathname === '/dashboard/wali',
+      icon: RiParentFill
+    },
+    {
+      label: "Tingkat",
+      href: "/dashboard/tingkat",
+      active: pathname === '/dashboard/tingkat',
+      icon: FaSchool
     },
     {
       label: "Pelajaran",
-      href: "/dashboard/pelajaran",
-      active: pathname === '/dashboard/pelajaran',
+      href: "/dashboard/matapelajaran",
+      active: pathname === '/dashboard/matapelajaran',
       icon: MdBook
     },
     {
@@ -53,6 +60,12 @@ const useDashboardMenu = () => {
       href: "/dashboard/tahun-ajaran",
       active: pathname === '/dashboard/tahun-ajaran',
       icon: BiCalendar
+    },
+    {
+      label: "Ekskul",
+      href: "/dashboard/ekskul",
+      active: pathname === '/dashboard/ekskul',
+      icon: MdSportsGymnastics
     },
   ], [pathname]);
 

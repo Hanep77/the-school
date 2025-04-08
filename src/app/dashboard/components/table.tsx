@@ -9,10 +9,11 @@ import { useSession } from "next-auth/react";
 interface TableProps {
   data: Record<string, string>[],
   fields: { label: string, name: string }[],
-  url: string
+  url: string,
+  details?: boolean
 }
 
-export default function Table({ data, fields, url }: TableProps) {
+export default function Table({ data, fields, url, details = true }: TableProps) {
   const [tableData, setTableData] = useState<Record<string, string>[]>(data);
   const session = useSession();
 
@@ -27,7 +28,9 @@ export default function Table({ data, fields, url }: TableProps) {
           {fields.map(field => {
             return <th className="py-3 px-6" key={field.name}>{field.label}</th>
           })}
-          <th className="py-3 px-6">Detail</th>
+          {
+            details && <th className="py-3 px-6">Detail</th>
+          }
           <th className="py-3 px-6">Actions</th>
         </tr>
       </thead>
@@ -37,7 +40,13 @@ export default function Table({ data, fields, url }: TableProps) {
             {fields.map(field => {
               return <td className="py-3 px-6 whitespace-nowrap" key={field.name}>{item[field.name]}</td>
             })}
-            <td className="py-3 px-6 whitespace-nowrap"><Link href={"/dashboard/" + url + "/details/" + item.id} className="text-blue-500 underline italic">lihat selengkapnya</Link></td>
+            {
+              details && <td className="py-3 px-6 whitespace-nowrap">
+                <Link href={"/dashboard/" + url + "/details/" + item.id} className="text-blue-500 underline italic">
+                  lihat selengkapnya
+                </Link>
+              </td>
+            }
             <td className="flex gap-2 text-xl py-3 px-6">
               <Link href={"/dashboard/" + url + "/edit/" + item.id} className="text-yellow-500"><BiEdit /></Link>
               <DeleteButton url={"/" + url} id={item.id} action={setTableData} token={session.data?.token} />

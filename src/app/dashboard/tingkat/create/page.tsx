@@ -1,32 +1,29 @@
 import Link from "next/link";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import getSingleData from "@/actions/getSingleData";
 import FormInput from "@/app/dashboard/components/formInput";
-import { guruFields } from "../../guruFields";
+import { tingkatFields } from "../tingkatFields";
 
-export default async function Detail({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const siswa = await getSingleData(id, "guru");
-
+export default async function Detail() {
   return <div className="px-4 mb-4">
     {/* breadcrumbs */}
     <div className="flex items-center">
       <Link href={"/dashboard"}>Dashboard</Link>
       <MdKeyboardArrowRight className="text-xl" />
-      <Link href={"/dashboard/guru"}>Guru</Link>
+      <Link href={"/dashboard/tingkat"}>Tingkat</Link>
       <MdKeyboardArrowRight className="text-xl" />
-      <Link href={""}>Edit</Link>
+      <Link href={""}>Create</Link>
     </div>
     {/* end breadcrumbs */}
 
     {/* page header */}
     <div className="flex items-center justify-between mb-2">
-      <h2 className="text-2xl font-semibold text-cyan-800">Ubah Data Guru</h2>
+      <h2 className="text-2xl font-semibold text-cyan-800">Buat Data Tingkat</h2>
     </div>
     {/* end page header */}
 
     {/* content */}
-    <FormInput fields={guruFields} currentData={siswa} method="put" url="guru" />
+    <FormInput fields={tingkatFields} method="post" url="tingkat" />
     {/* end content */}
   </div>
 }
+
